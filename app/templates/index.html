@@ -9,9 +9,13 @@
     <h1>Current Play</h1>
     </br>
     <img src="{{ url_for('static', filename='images/ss.png') }}" alt="Foto">
-    <form action="/game" method="post">
+    <form action="/refresh" method="post">
         <button type="submit" name="action" value="refresh">Refresh</button>
+    </form>
+    <form action="/previous" method="post">
         <button type="submit" name="action" value="previous">Previous Move</button>
+    </form>
+    <form action="/next" method="post">
         <button type="submit" name="action" value="next">Next Move</button>
     </form>
 </body>

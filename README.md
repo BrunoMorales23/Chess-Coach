@@ -4,7 +4,7 @@ This project, was born as the requirement of my friends and i, in order not don'
 As the result, i came up with the idea of building a paralel board that mirrors what is happening on specific moves on a game.
 The codes are extracted from "chess.com" games URL's.
 
-![MainView](./app/static/images/readmeIntro.png)
+![Main](./app/static/images/readmeIntro.png)
 
 ---
 

@@ -83,7 +83,7 @@ def get_screenshot():
     )
 
     board = browser.find_element("xpath", "//wc-chess-board[contains(@id,'board-single') and contains(@class,'board')]")
-    board.screenshot('./static/images/ss.png')
+    board.screenshot('./static/images/ss.webp')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

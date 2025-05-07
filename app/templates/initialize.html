@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/x-icon">
+    <title>Chess Coach</title>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="allContainer">
+        <div class="headerContainer">
+            <img src="{{ url_for('static', filename='images/18657.png') }}">
+            <h1>Welcome to Chess Coach</h1>
+        </div>
+        
+        <p class="bodyText">Please, declare the game code which you wish to spectate bellow</p>
+
+        <div class="bodyContainer">
+            <form action="/game" method="post">
+                <input type="text" name="game-code" placeholder="Game Code"></input>
+                <input type="text" name="move-number" placeholder="Move Number"></input>
+                <button type="submit" class="submitButton">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html

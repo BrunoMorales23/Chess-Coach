@@ -1,0 +1,82 @@
+* {
+  font-family: "Cal Sans", sans-serif;
+  font-weight: 250;
+  font-style: normal;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("/static/images/background1.png") no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+}
+
+.allContainer {
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    padding: 50px;
+    margin: 150px auto;
+    width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.headerContainer img {
+  height: 50px;
+  width: 50px;
+}
+
+.bodyText {
+  align-items: center;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.bodyContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.bodyContainer input::placeholder {
+  text-align: center;
+}
+
+.bodyContainer .submitButton {
+  display: block;
+  gap: 5px;
+  padding: 10px;
+  margin: 15px auto;
+  width: fit-content;
+  text-align: center;
+  width: 100px;
+  color:white;
+  background-color: black;
+  border-radius: 8px;
+  transition: 1s;
+}
+
+.bodyContainer .submitButton:hover {
+  color:black;
+  background-color: white;
+  transition: 1s;
+  cursor: pointer;
+}

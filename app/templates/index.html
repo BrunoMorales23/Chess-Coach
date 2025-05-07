@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHESS TEST</title>
+    <title>Chess Coach</title>
 </head>
 <body>
     <h1>Current Play</h1>
+    <form action="/" method="post">
+        <button type="submit" name="action" value="reset">Reset</button>
+    </form>
     </br>
     <img src="{{ url_for('static', filename='images/ss.png') }}" alt="Foto">
-    <h2>TEST</h2>
+    <form action="/refresh" method="post">
+        <button type="submit" name="refresh" value="refresh">Refresh</button>
+    </form>
+    <form action="/game" method="post">
+        <button type="submit" name="action" value="previous">Previous Move</button>
+    </form>
+    <form action="/game" method="post">
+        <button type="submit" name="action" value="next">Next Move</button>
+    </form>
 </body>
 </html>

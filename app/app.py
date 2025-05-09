@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, request, send_file, jsonify
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,24 +17,31 @@ prev_button = None
 output_path = './static/images/ss.webp'
 streaming_game = False
 filename_value = ''
-root = "C:/Users/MarsuDIOS666/Desktop/Chess Coach App/app/static/images/ss.webp"
-target_root = "C:/Users/MarsuDIOS666/Desktop/Chess Coach App/app/static/images/"
+#root = "C:/Users/MarsuDIOS666/Desktop/Chess Coach App/app/static/images/ss.webp"
+#target_root = "C:/Users/MarsuDIOS666/Desktop/Chess Coach App/app/static/images/"
+root = ""
+target_root = ""
 
 #inicializar explorador + vista inicial
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
     global browser
-    chrome_options = Options()
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    #chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--ignore-certificate-errors")
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    chrome_options.add_experimental_option('useAutomationExtension', False)
-    browser = webdriver.Chrome(options=chrome_options) #service=service)
-    login(user="XXX@gmail.com" , password="XXX")
+    if request.method == 'POST':
+        #volver a la vista inicial
+        return render_template('initialize.html')
+    else:
+        set_initial_paths(priv_env=False)
+        chrome_options = Options()
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        #chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--ignore-certificate-errors")
+        chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        chrome_options.add_experimental_option('useAutomationExtension', False)
+        browser = webdriver.Chrome(options=chrome_options) #service=service)
+        login(user="chesscoachselenium@gmail.com" , password="ChessCoach2303@")
     return render_template('initialize.html')
 
 #lanzar la búsqueda del estado del tablero + inicializar vista de tablero
@@ -63,6 +71,17 @@ def home():
             time.sleep(0.1)
             get_screenshot()
             render_value = "index.html"
+        case ("switch", False):
+            config_xpath_code = "//button[contains(@id,'board-controls-settings')]"
+            switch_xpath_code = "//button[contains(@id,'board-controls-flip')]"
+            config_xpath_code = browser.find_element("xpath", config_xpath_code)
+            switch_xpath_code = browser.find_element("xpath", switch_xpath_code)
+            action_steps = ActionChains(browser)
+            action_steps.move_to_element(config_xpath_code).perform()
+            switch_xpath_code.click()
+            time.sleep(0.1)
+            get_screenshot()
+            render_value = "index.html"
         case _:
             game_code = request.form.get('game-code')
             move_num = request.form.get('move-number')
@@ -82,16 +101,18 @@ def home():
     return render_template(render_value)
 
 #establecer imagen dinámica
-@app.route('/dynamic-index', methods=['GET', 'POST', 'DELETE'])
+@app.route('/game-live', methods=['GET', 'POST', 'DELETE'])
 def get_image():
     if request.method == 'POST':
         global filename_value
+        time.sleep(0.1)
         get_screenshot()
         data = request.get_json()
         filename = data.get("filename")
         os.rename(root, target_root+filename)
         filename_value = "/static/images/"+filename
-        time.sleep(10)
+        #filename_value = target_root+filename
+        time.sleep(5)
         return send_file(filename_value, mimetype='image/webp')
     elif request.method == 'DELETE':
         data = request.get_json()
@@ -102,15 +123,6 @@ def get_image():
     elif request.method == 'GET':
         return jsonify({"filename": filename_value}), 200
 
-
-#volver a la vista inicial
-@app.route('/', methods=['POST'])
-def reset():
-    return render_template('initialize.html')
-
-
-#definir URL y establecer en las variables de sesión los valores de movimiento, código de partida y url
-@app.route('/game')
 def next_move(next):
     global next_button
     global prev_button
@@ -126,8 +138,6 @@ def next_move(next):
         prev_button.click()
     return
 
-#acceder al explorador en el movimiento y juego declarado para obtener la instancia actual del tablero
-@app.route('/game')
 def get_screenshot():
     try:
         xpath_code = "//div[contains(@class,'game-review-buttons-component')]"
@@ -140,7 +150,7 @@ def get_screenshot():
         live_game = False
     except TimeoutException:
         xpath_code = "//wc-chess-board[contains(@id,'board-single') and contains(@class,'board')]"
-        board = browser.find_element("xpath", "//wc-chess-board[contains(@id,'board-single') and contains(@class,'board')]")
+        board = browser.find_element("xpath", xpath_code)
         board.screenshot(output_path)
         live_game = True
         return live_game
@@ -166,5 +176,19 @@ def login(user, password):
     except TimeoutException:
         raise Exception("Unable to LogIn, failed at def 'login'")
     
+def set_initial_paths(priv_env):
+    global root
+    global target_root
+
+    if priv_env == True:
+        chess_coach_path = os.path.join(os.path.expanduser("~"), "Chess-Coach")
+        root = chess_coach_path+"/app/static/images/ss.webp"
+        target_root = chess_coach_path+"/app/static/images/"
+        root = root.replace("\\", "/")
+        target_root = target_root.replace("\\", "/")
+    else:
+        root = "C:/Users/bmorales/OneDrive - rmrconsultores.com/Escritorio/Chess-Coach/app/static/images/ss.webp"
+        target_root = "C:/Users/bmorales/OneDrive - rmrconsultores.com/Escritorio/Chess-Coach/app/static/images/"
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

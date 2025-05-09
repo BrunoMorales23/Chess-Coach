@@ -6,9 +6,11 @@
     <title>Live Game</title>
 </head>
 <body>
+    <form action="/game-live" method="post">
     <h1>Imagen en vivo</h1>
-    <h1> chupala carlitoooo</h1>
-    <img id="live-image" src="">
+    <button id="toggle-button">Pausar</button>
+    <img id="live-image" src="{{ image_url }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </form>
 </body>
 </html>

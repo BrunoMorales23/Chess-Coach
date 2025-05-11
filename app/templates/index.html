@@ -3,23 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}" type="image/x-icon">
+    <!--<link href="/app/static/styles.css" rel="stylesheet"> !-->
     <title>Chess Coach</title>
 </head>
 <body>
-    <h1>Current Play</h1>
-    <form action="/" method="post">
-        <button type="submit" name="action" value="reset">Reset</button>
-    </form>
+    <h1 class="staticViewTitle">Current Move</h1>
     </br>
-    <img src="{{ url_for('static', filename='images/ss.webp') }}" alt="Foto">
-    <form action="/refresh" method="post">
-        <button type="submit" name="refresh" value="refresh">Refresh</button>
-    </form>
-    <form action="/game" method="post">
-        <button type="submit" name="action" value="previous">Previous Move</button>
-    </form>
-    <form action="/game" method="post">
-        <button type="submit" name="action" value="next">Next Move</button>
-    </form>
+    <div class="staticViewContainer">
+        <img src="{{ url_for('static', filename='images/ss.webp') }}" alt="Foto" class="board">
+        <!--<img src="/app/static/images/ss.webp" alt="Foto" class="board">!-->
+    </div>
+    <div class="staticViewButtonContainer">
+        <form action="/refresh" method="post">
+            <button class="staticViewButton" type="submit" name="refresh" value="refresh">⟲</button>
+        </form>
+        <form action="/game" method="post">
+            <button class="staticViewButton" type="submit" name="action" value="previous">←</button>
+        </form>
+        <form action="/game" method="post">
+            <button class="staticViewButton" type="submit" name="action" value="next">→</button>
+        </form>
+        <form action="/game" method="post">
+            <button class="staticViewButton" type="submit" name="action" value="switch">↹</button>
+        </form>
+        <form action="/" method="post">
+            <button class="staticViewButton" type="submit" name="action" value="reset">Reset</button>
+        </form>
+    </div>
 </body>
 </html>

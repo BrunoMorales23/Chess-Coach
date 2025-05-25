@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <title>Chess Coach</title>
+</head>
+<body>
+    <h1 class="staticViewTitle">Current Move</h1>
+    </br>
+    <div class="staticViewContainer">
+    </div>
+    <div class="staticViewButtonContainer">
+        <form action="/refresh" method="post">
+            <button class="staticViewButton" type="submit" name="refresh" value="refresh">⟲</button>
+        </form>
+        <form action="/game" method="post">
+            <button class="staticViewButton" type="submit" name="action" value="previous">←</button>
+        </form>
+        <form action="/game" method="post">
+            <button class="staticViewButton" type="submit" name="action" value="next">→</button>
+        </form>
+        <form action="/game" method="post">
+            <button class="staticViewButton" type="submit" name="action" value="switch">↹</button>
+        </form>
+        <form action="/" method="post">
+            <button class="staticViewButton" type="submit" name="action" value="reset">Reset</button>
+        </form>
+    </div>
+</body>
+</html>

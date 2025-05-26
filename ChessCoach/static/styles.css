@@ -60,3 +60,7 @@ html, body {
   transform: translate(-50%, -50%); /* mueve el botón arriba y a la izquierda para centrar */
   z-index: 1;
 }
+
+.buttonContainer a{
+  all: unset;
+}

@@ -4,5 +4,5 @@ from django.shortcuts import render
 
 def landing_page(request):
     if request.method == "GET":
-        return render(request, 'base.html')
+        return render(request, 'landingPage.html')
 

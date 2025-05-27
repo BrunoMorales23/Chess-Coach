@@ -1,13 +1,20 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 def register_page(request):
     register = request.GET.get("register")
+    print(register)
     #Register devuelve como STR
     if request.method == "GET" and register == "true":
         #Register View
         return render(request, 'logInPanel.html', {'register': True})
     
+    elif request.method == "GET" and register == None:
+        logout(request)
+        return redirect('landing') 
+
     elif request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -17,7 +24,7 @@ def register_page(request):
             #DJANGO soporta variables de sesión
             request.session['username'] = username
             request.session['logged_in'] = True
-        return redirect('landing')
+        return render(request, "landingPage.html", {'logged' : True, 'username': username})
     
     else:
         #Log In View
@@ -27,4 +34,19 @@ def register_page(request):
 
 def login_page(request):
     if request.method == "GET":
-        return render(request, 'landingPage.html')
+        return render(request, 'logInPanel.html', {'register': False})
+    elif request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None:
+            login(request, user)  # crea la sesión
+            request.session['username'] = username
+            request.session['logged_in'] = True
+            return redirect("landing")
+        else:
+            return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': False})
+
+    return render(request, "login.html")

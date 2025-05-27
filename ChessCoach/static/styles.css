@@ -66,20 +66,37 @@ html, body {
 }
 
 .logInPanel{
-  background-color: rgb(37, 37, 37);
+  background-color: rgb(44, 44, 44);
 }
 
-.logInPanelContainer{
+.logInPanelContainerLog{
   position: fixed;
   top: 20%;
   left: 35%;
   transform: translateY(-20%, -50%);
   z-index: 1;
-  padding: 2rem;
+  padding: 3rem;
   max-width: 30%;
   width: 100%;
+  height: auto;
   text-align: left;
-  background: rgb(219, 219, 219);
+  background: rgb(214, 214, 214);
+  border-radius: 5px;
+}
+
+.logInPanelContainerReg{
+  position: fixed;
+  top: 15%;
+  left: 35%;
+  transform: translateY(-20%, -50%);
+  z-index: 1;
+  padding: 3rem;
+  max-width: 30%;
+  width: 100%;
+  height: auto;
+  text-align: left;
+  background: rgb(214, 214, 214);
+  border-radius: 5px;
 }
 
 .logInPanelContainer input::placeholder{
@@ -87,5 +104,9 @@ html, body {
 }
 
 .logInPanelOtherContent{
-  background: white;
+  text-align: center;
+}
+
+.usersNavBar nav{
+ background: rgb(214, 214, 214);
 }

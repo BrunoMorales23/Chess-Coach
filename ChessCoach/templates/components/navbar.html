@@ -1,9 +1,24 @@
 {% load static %}
+
+{% if usersView %}
+<section class="usersNavBar">
+ <nav class="navbar navbar-expand-lg position-relative" style="z-index: 10;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img src="{% static 'images/icon-no-bg.png' %}" width="45" height="45"> Chess Coach</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        </div>
+    </nav>
+</section>
+
+{% else %}
 {% if logged %}
 <section>
     <nav class="navbar navbar-expand-lg bg-secondary-subtle position-relative" style="z-index: 10;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="{% static 'images/icon-no-bg.png' %}" width="45" height="45"> Chess Coach</a>
+        <a class="navbar-brand" href="/"><img src="{% static 'images/icon-no-bg.png' %}" width="45" height="45"> Chess Coach</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -11,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
@@ -35,9 +50,9 @@
             </li>
           </ul>
           <div class="d-flex gap-3">
-            <button class="btn btn-outline-secondary" type="submit">Profile</button>
+            <button class="btn btn-outline-primary" type="submit">Profile</button>
             <form method="get">
-            <button class="btn btn btn-secondary" type="submit" name="logout" value="true">Log Out</button>
+            <button class="btn btn btn-primary" type="submit" name="logout" value="true">Log Out</button>
             </form>
           </div>
         </div>
@@ -49,7 +64,7 @@
   <section>
     <nav class="navbar navbar-expand-lg bg-secondary-subtle position-relative" style="z-index: 10;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="{% static 'images/icon-no-bg.png' %}" width="45" height="45"> Chess Coach</a>
+        <a class="navbar-brand" href="/"><img src="{% static 'images/icon-no-bg.png' %}" width="45" height="45"> Chess Coach</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -57,7 +72,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
@@ -81,12 +96,13 @@
             </li>
           </ul>
           <div class="d-flex gap-3">
-            <form method="get" action="accounts/login/"><button class="btn btn-outline-secondary" type="submit" name="login" value="true">Log In</button></form>
-            <form method="get" action="accounts/register/"><button class="btn btn btn-secondary" type="submit" name="register" value="true">Register</button></form>
+            <form method="get" action="accounts/login/"><button class="btn btn-outline-primary" type="submit" name="login" value="true">Log In</button></form>
+            <form method="get" action="accounts/register/"><button class="btn btn btn-primary" type="submit" name="register" value="true">Register</button></form>
           </div>
         </div>
       </div>
     </nav>
 
   </section>
+  {% endif %}
   {% endif %}

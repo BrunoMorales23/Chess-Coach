@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 
 def register_page(request):
     register = request.GET.get("register")
@@ -9,11 +8,12 @@ def register_page(request):
     #Register devuelve como STR
     if request.method == "GET" and register == "true":
         #Register View
-        return render(request, 'logInPanel.html', {'register': True})
+        return render(request, 'logInPanel.html', {'register': True, 'usersView' : True})
     
     elif request.method == "GET" and register == None:
-        logout(request)
-        return redirect('landing') 
+        #logout(request)
+        #return redirect('landing') 
+        return render(request, 'logInPanel.html', {'register': True, 'usersView' : True})
 
     elif request.method == "POST":
         form = RegisterForm(request.POST)
@@ -27,17 +27,17 @@ def register_page(request):
             return redirect("landing")
         else:
             request.session['status'] = "invalidcreds"
-            return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': True})
+            return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': True, 'usersView' : True})
     else:
         #Log In View
         form = RegisterForm()
-        return render(request, 'logInPanel.html', {'register': False})
+        return render(request, 'logInPanel.html', {'register': False, 'usersView' : True})
     
 
 def login_page(request):
     status = request.session.get('status', None)
     if request.method == "GET" and status == "invalidcreds":
-        return render(request, 'logInPanel.html', {'register': False})
+        return render(request, 'logInPanel.html', {'register': False, 'usersView' : True})
     elif request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -50,6 +50,6 @@ def login_page(request):
             request.session['logged_in'] = True
             return redirect("landing")
         else:
-            return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': False})
+            return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': False, 'usersView' : True})
 
-    return render(request, "logInPanel.html")
+    return render(request, "logInPanel.html", {'register': False, 'usersView' : True})

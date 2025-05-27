@@ -24,66 +24,72 @@
 </head>
 
 <body class="logInPanel">
-    <div class="logInPanelOtherContent">
-        <div>Register</div>
-        <p>It's easy and free!</p>
-    </div>
-    <div class="logInPanelContainer">
+    {% include "components/navbar.html" %}
     {% if register %}
+    <div class="logInPanelContainerReg">
     <form method="post">
         {% csrf_token %}
+        <div class="logInPanelOtherContent">
+            <img src="{% static 'images/icon-no-bg.png' %}" width="45" height="45">
+        <h3>Create a new account</h1>
+        <p>Enjoy all Chess Coach features for free!</p>
+    </div>
         <div class="mb-3">
-            <label class="form-label">Username</label>
             <input class="form-control" placeholder="Username" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" required>
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
             <input type="email" placeholder="Example@example.com" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email"
                 required>
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <div id="emailHelp" class="form-text ps-1">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" placeholder="*********" class="form-control" id="exampleInputPassword1" name="password" required>
+            <input type="password" placeholder="Password" class="form-control" id="passinput" name="password" required>
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-            <input type="password" placeholder="*********" class="form-control" id="exampleInputPassword1" name="confirmpassword" required>
+            <input type="password" placeholder="Confirm Password" class="form-control" id="passconfirminput" name="confirmpassword" required>
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Show Password</label>
+            <input type="checkbox" class="form-check-input" id="showpass">Show Password</input>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" id="registerButton" class="btn btn-primary container-fluid d-flex justify-content-center p-3" onclick="fixTop()">Register</button>
     </form>
+    <a class="container-fluid d-flex justify-content-center p-3" href="/accounts/login/">Already registered?</a>
      {% if error %}
     <p class="alert alert-danger" role="alert">{{ error }}</p>
     {% endif %}
 
     {% else %}
+    <div class="logInPanelContainerLog">
     <form method="post">
         {% csrf_token %}
+        <div class="logInPanelOtherContent">
+            <img src="{% static 'images/icon-no-bg.png' %}" width="45" height="45">
+        <h3>Log In</h1>
+        <p>Enjoy all Chess Coach features for free!</p>
+    </div>
         <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" required>
+            <input placeholder="Username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" required>
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+            <input placeholder="Password" type="password" class="form-control" id="passinput" name="password" required>
         </div>
         <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <input type="checkbox" class="form-check-input" id="showpass">Show Password</input>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+        <button type="submit" class="btn btn-primary container-fluid d-flex justify-content-center p-3">Log In</button>
+    </form>
+    <a class="container-fluid d-flex justify-content-center p-3" href="/accounts/register/">Register an account</a>
     {% if error %}
     <p class="alert alert-danger" role="alert">{{ error }}</p>
     {% endif %}
 
     {% endif %}
-
 </div>
+</div>
+ {% include "components/disclaimer.html" %} 
+
+<script src="{% static '/script.js' %}"></script>
 </body>
 
 </html>

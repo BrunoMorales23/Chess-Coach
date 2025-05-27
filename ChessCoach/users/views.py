@@ -26,6 +26,7 @@ def register_page(request):
             request.session['logged_in'] = True
             return redirect("landing")
         else:
+            request.session['status'] = "invalidcreds"
             return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': True})
     else:
         #Log In View
@@ -34,7 +35,8 @@ def register_page(request):
     
 
 def login_page(request):
-    if request.method == "GET":
+    status = request.session.get('status', None)
+    if request.method == "GET" and status == "invalidcreds":
         return render(request, 'logInPanel.html', {'register': False})
     elif request.method == "POST":
         username = request.POST.get("username")
@@ -50,4 +52,4 @@ def login_page(request):
         else:
             return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': False})
 
-    return render(request, "login.html")
+    return render(request, "logInPanel.html")

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 #    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
 
 class RegisterForm(forms.ModelForm):
-    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    confirmpassword = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
@@ -19,9 +19,11 @@ class RegisterForm(forms.ModelForm):
         global validation
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirmpassword")
+        confirmpassword = cleaned_data.get("confirmpassword")
+        print(password)
+        print(confirmpassword)
         
-        if password != confirm_password:
+        if password != confirmpassword:
             raise forms.ValidationError("Las contraseñas no coinciden")
 
     def save(self, commit=True):

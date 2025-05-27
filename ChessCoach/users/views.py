@@ -1,24 +1,24 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 
 def register_page(request):
     register = request.GET.get("register")
-    print(register)
     #Register devuelve como STR
     if request.method == "GET" and register == "true":
-        #Register View
+        #Register View, pero sin excepcionar, renderizado
         return render(request, 'logInPanel.html', {'register': True, 'usersView' : True})
     
     elif request.method == "GET" and register == None:
-        #logout(request)
-        #return redirect('landing') 
-        return render(request, 'logInPanel.html', {'register': True, 'usersView' : True})
+        #Register View, con excepcion, redireccionado
+        print("AAAAAAAAAAAAAAAAAAA")
+        return render(request, 'logInPanel.html', {'register': True, 'usersView' : True,"error": "Invalid credentials"})
 
     elif request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()  # si es un ModelForm (modelos personalizados no funcionan con save!)
+            request.session['status'] = None
             username = form.cleaned_data.get('username')
 
             #DJANGO soporta variables de sesión
@@ -27,7 +27,8 @@ def register_page(request):
             return redirect("landing")
         else:
             request.session['status'] = "invalidcreds"
-            return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': True, 'usersView' : True})
+            form = RegisterForm()
+            return redirect("register")
     else:
         #Log In View
         form = RegisterForm()

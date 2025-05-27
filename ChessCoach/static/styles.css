@@ -64,3 +64,28 @@ html, body {
 .buttonContainer a{
   all: unset;
 }
+
+.logInPanel{
+  background-color: rgb(37, 37, 37);
+}
+
+.logInPanelContainer{
+  position: fixed;
+  top: 20%;
+  left: 35%;
+  transform: translateY(-20%, -50%);
+  z-index: 1;
+  padding: 2rem;
+  max-width: 30%;
+  width: 100%;
+  text-align: left;
+  background: rgb(219, 219, 219);
+}
+
+.logInPanelContainer input::placeholder{
+  color: rgb(95, 95, 95);
+}
+
+.logInPanelOtherContent{
+  background: white;
+}

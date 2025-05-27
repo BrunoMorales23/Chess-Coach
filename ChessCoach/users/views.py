@@ -24,8 +24,9 @@ def register_page(request):
             #DJANGO soporta variables de sesión
             request.session['username'] = username
             request.session['logged_in'] = True
-        return render(request, "landingPage.html", {'logged' : True, 'username': username})
-    
+            return redirect("landing")
+        else:
+            return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': True})
     else:
         #Log In View
         form = RegisterForm()

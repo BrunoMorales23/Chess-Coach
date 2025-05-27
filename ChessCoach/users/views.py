@@ -11,7 +11,6 @@ def register_page(request):
     
     elif request.method == "GET" and register == None:
         #Register View, con excepcion, redireccionado
-        print("AAAAAAAAAAAAAAAAAAA")
         return render(request, 'logInPanel.html', {'register': True, 'usersView' : True,"error": "Invalid credentials"})
 
     elif request.method == "POST":
@@ -37,6 +36,7 @@ def register_page(request):
 
 def login_page(request):
     status = request.session.get('status', None)
+    print(status)
     if request.method == "GET" and status == "invalidcreds":
         return render(request, 'logInPanel.html', {'register': False, 'usersView' : True})
     elif request.method == "POST":

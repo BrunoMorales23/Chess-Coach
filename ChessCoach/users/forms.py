@@ -15,16 +15,25 @@ class RegisterForm(forms.ModelForm):
             'password': forms.PasswordInput(),
         }
     
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError("Username already in use, please, try another.")
+        return username
+ 
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already in use, please, try another.")
+        return email
+ 
     def clean(self):
         global validation
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirmpassword = cleaned_data.get("confirmpassword")
-        print(password)
-        print(confirmpassword)
-        
         if password != confirmpassword:
-            raise forms.ValidationError("Las contraseñas no coinciden")
+            raise forms.ValidationError("Password doesn't match, try again.")
 
     def save(self, commit=True):
         user = super().save(commit=False)

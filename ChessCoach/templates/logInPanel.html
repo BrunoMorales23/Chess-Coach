@@ -24,6 +24,7 @@
 </head>
 
 <body class="logInPanel">
+    <script src="{% static '/script.js' %}"></script>
     {% include "components/navbar.html" %}
     {% if register %}
     <div class="logInPanelContainerReg">
@@ -35,18 +36,21 @@
         <p>Enjoy all Chess Coach features for free!</p>
     </div>
         <div class="mb-3">
-            <input class="form-control" placeholder="Username" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" required>
+            <input class="form-control" placeholder="Username" id="userInput" aria-describedby="emailHelp" name="username" required>
+            <div id="userException" class="form-text ps-1 d-none text-danger">User already in use, please, try another.</div>
         </div>
         <div class="mb-3">
-            <input type="email" placeholder="Example@example.com" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email"
+            <input type="email" placeholder="Example@example.com" class="form-control" id="emailInput" aria-describedby="emailHelp" name="email"
                 required>
-            <div id="emailHelp" class="form-text ps-1">We'll never share your email with anyone else.</div>
+            <p id="emailHelp" class="form-text ps-1">We'll never share your email with anyone else.</p>
+            <div id="emailException" class="form-text ps-1 d-none text-danger">Email already in use, please, try another.</div>
         </div>
         <div class="mb-3">
             <input type="password" placeholder="Password" class="form-control" id="passinput" name="password" required>
         </div>
         <div class="mb-3">
             <input type="password" placeholder="Confirm Password" class="form-control" id="passconfirminput" name="confirmpassword" required>
+            <div id="passwordAlert" class="form-text ps-1 d-none text-danger">Password doesn't match, try again.</div>
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="showpass">Show Password</input>
@@ -54,10 +58,19 @@
         <button type="submit" id="registerButton" class="btn btn-primary container-fluid d-flex justify-content-center p-3" onclick="fixTop()">Register</button>
     </form>
     <a class="container-fluid d-flex justify-content-center p-3" href="/accounts/login/">Already registered?</a>
-     {% if error %}
-    <p class="alert alert-danger" role="alert">{{ error }}</p>
-    {% endif %}
+{% for field in form %}
+  {% for error in field.errors %}
+     <script>
+      handleFormError("{{ error|escapejs }}", "{{ field.id_for_label }}");
+    </script>
+  {% endfor %}
+{% endfor %}
 
+{% for error in form.non_field_errors %}
+<script>
+      handleFormError("{{ error|escapejs }}");
+    </script>
+{% endfor %}
     {% else %}
     <div class="logInPanelContainerLog">
     <form method="post">
@@ -69,9 +82,11 @@
     </div>
         <div class="mb-3">
             <input placeholder="Username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" required>
+            <div id="userException" class="form-text ps-1 d-none">User not found.</div>
         </div>
         <div class="mb-3">
             <input placeholder="Password" type="password" class="form-control" id="passinput" name="password" required>
+            <div id="passwordAlert" class="form-text ps-1 d-none">Invalid password, try again.</div>
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="showpass">Show Password</input>
@@ -86,9 +101,6 @@
     {% endif %}
 </div>
 </div>
- {% include "components/disclaimer.html" %} 
-
-<script src="{% static '/script.js' %}"></script>
 </body>
 
 </html>

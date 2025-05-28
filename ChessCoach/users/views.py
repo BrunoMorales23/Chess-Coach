@@ -5,13 +5,9 @@ from django.contrib.auth import authenticate, login
 def register_page(request):
     register = request.GET.get("register")
     #Register devuelve como STR
-    if request.method == "GET" and register == "true":
+    if request.method == "GET":
         #Register View, pero sin excepcionar, renderizado
         return render(request, 'logInPanel.html', {'register': True, 'usersView' : True})
-    
-    elif request.method == "GET" and register == None:
-        #Register View, con excepcion, redireccionado
-        return render(request, 'logInPanel.html', {'register': True, 'usersView' : True,"error": "Invalid credentials"})
 
     elif request.method == "POST":
         form = RegisterForm(request.POST)
@@ -25,9 +21,7 @@ def register_page(request):
             request.session['logged_in'] = True
             return redirect("landing")
         else:
-            request.session['status'] = "invalidcreds"
-            form = RegisterForm()
-            return redirect("register")
+            return render(request, 'logInPanel.html', { 'register': True, 'usersView': True, 'form': form})
     else:
         #Log In View
         form = RegisterForm()

@@ -56,7 +56,7 @@ ROOT_URLCONF = 'ChessCoach.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["C:/Users/bmorales/OneDrive - rmrconsultores.com/Escritorio/Chess-Coach/ChessCoach/templates"],
+        'DIRS': ["C:/Users/MarsuDIOS666/Desktop/Chess-Coach/ChessCoach/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

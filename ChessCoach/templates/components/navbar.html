@@ -50,10 +50,8 @@
             </li>
           </ul>
           <div class="d-flex gap-3">
-            <button class="btn btn-outline-primary" type="submit">Profile</button>
-            <form method="get">
-            <button class="btn btn btn-primary" type="submit" name="logout" value="true">Log Out</button>
-            </form>
+             <form method="get" action="{% url 'profile' username %}"><button class="btn btn-outline-primary" type="submit" value="profile">Profile</button></form>
+            <form method="get"><button class="btn btn btn-primary" type="submit" name="logout" value="true">Log Out</button></form>
           </div>
         </div>
       </div>

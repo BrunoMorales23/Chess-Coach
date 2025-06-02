@@ -48,3 +48,9 @@ def login_page(request):
             return render(request, "logInPanel.html", {"error": "Invalid credentials", 'register': False, 'usersView' : True})
 
     return render(request, "logInPanel.html", {'register': False, 'usersView' : True})
+
+def profile_page(request, username):
+    if request.method == "GET":
+        username = request.session.get('username')
+        print(username)
+        return render(request, 'profile.html', {'username': username})

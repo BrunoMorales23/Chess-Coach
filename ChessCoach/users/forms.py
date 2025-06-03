@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import CustomUser
 
 #class RegisterForm(forms.Form):
 #    username = forms.CharField(label='Usuario', max_length=100)
@@ -8,8 +9,9 @@ from django.contrib.auth.models import User
 
 class RegisterForm(forms.ModelForm):
     confirmpassword = forms.CharField(widget=forms.PasswordInput())
+    profile_picture = forms.ImageField(required=False)
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'email', 'password']
         widgets = {
             'password': forms.PasswordInput(),
@@ -17,13 +19,13 @@ class RegisterForm(forms.ModelForm):
     
     def clean_username(self):
         username = self.cleaned_data.get("username")
-        if User.objects.filter(username=username).exists():
+        if CustomUser.objects.filter(username=username).exists():
             raise forms.ValidationError("Username already in use, please, try another.")
         return username
  
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if User.objects.filter(email=email).exists():
+        if CustomUser.objects.filter(email=email).exists():
             raise forms.ValidationError("Email already in use, please, try another.")
         return email
  
@@ -41,3 +43,4 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    

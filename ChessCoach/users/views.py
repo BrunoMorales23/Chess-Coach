@@ -10,7 +10,7 @@ def register_page(request):
         return render(request, 'logInPanel.html', {'register': True, 'usersView' : True})
 
     elif request.method == "POST":
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()  # si es un ModelForm (modelos personalizados no funcionan con save!)
             request.session['status'] = None
@@ -30,7 +30,6 @@ def register_page(request):
 
 def login_page(request):
     status = request.session.get('status', None)
-    print(status)
     if request.method == "GET" and status == "invalidcreds":
         return render(request, 'logInPanel.html', {'register': False, 'usersView' : True})
     elif request.method == "POST":
@@ -38,7 +37,6 @@ def login_page(request):
         password = request.POST.get("password")
 
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None:
             login(request, user)  # crea la sesión
             request.session['username'] = username
@@ -52,5 +50,4 @@ def login_page(request):
 def profile_page(request, username):
     if request.method == "GET":
         username = request.session.get('username')
-        print(username)
         return render(request, 'profile.html', {'username': username})
